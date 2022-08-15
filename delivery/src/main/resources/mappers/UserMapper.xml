@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.delivery.dao.UserMapper">
+   
+	<select id="myPoint" resultType="com.han.delivery.dto.PointDto">
+		SELECT 
+			USER_ID
+			,USED_DATE
+			,INFO
+			,POINT
+		FROM
+			DL_POINT    
+		WHERE 
+			USER_ID = #{id }
+		ORDER BY
+			USED_DATE DESC
+	</select>
+	
+	<select id="myReviewList" resultType="com.han.delivery.dto.ReviewDto">
+		SELECT  ORDER_NUM
+				,STORE_ID
+				,REVIEW_CONTENT
+				,BOSS_COMMENT
+				,REGI_DATE
+				,SCORE
+				,REVIEW_IMG
+				,USER_ID
+		FROM    DL_REVIEW
+		WHERE   USER_ID = #{id }
+		ORDER BY REGI_DATE DESC
+	</select>
+ 
+ 
+ 
+	<delete id="deleteReview">
+		DELETE DL_REVIEW 
+		WHERE	USER_ID = #{userId }
+		AND		ORDER_NUM = #{orderNum } 
+	</delete>
+	
+	<update id="modifyInfo">
+	    UPDATE DL_USER SET
+	    
+	    <if test="valueType == 'password'">
+	        PASSWORD = #{value }
+	    </if>
+	    
+	    <if test="valueType == 'nickname'">
+	        NICKNAME = #{value }		
+	    </if>
+	    
+	    <if test="valueType == 'phone'">
+	        PHONE = #{value }		
+	    </if>
+	    
+	    WHERE	USERNAME = #{username} 
+	</update>
+	
+	
+	
+
+	
+   
+</mapper>

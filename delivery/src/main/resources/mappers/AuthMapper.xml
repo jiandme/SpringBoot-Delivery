@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.han.delivery.dao.AuthMapper">
+   
+	<select id="usernameChk" resultType="int">
+		SELECT COUNT(*) FROM DL_USER WHERE USERNAME = #{username}
+	</select>
+   
+	<insert id="signup">
+		INSERT INTO DL_USER (ID, USERNAME, PASSWORD, EMAIL, NICKNAME, PHONE) 
+		VALUES (USER_ID_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{nickname},#{phone} )
+	</insert>
+	
+	<select id="getUser" resultType="com.han.delivery.config.auth.CustomUserDetails">
+		SELECT * FROM DL_USER WHERE USERNAME = #{username}
+	</select>
+	
+	<select id="storecount" resultType="int">
+		select count(*) from DL_STORE
+	</select>
+   
+</mapper>
